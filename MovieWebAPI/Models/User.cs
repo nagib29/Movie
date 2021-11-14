@@ -22,5 +22,6 @@ namespace MovieWebAPI.Models
         public string UserId { get; set; }
         public string searchValue { get; set; }
         public string Response { get; set; }
+        public DateTime RequestDate { get; set; }
     }
 }

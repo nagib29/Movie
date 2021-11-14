@@ -25,7 +25,7 @@ namespace MovieWebAPI.Models
             //First, get the incoming request
             var request = await FormatRequest(context.Request);
             logRequest.searchValue = request;
-
+            logRequest.RequestDate = DateTime.Now;
             var check = _db.LogRequests.Where(x => x.searchValue == request).FirstOrDefault();
 
             var path = context.Request.Path.ToString();
@@ -61,6 +61,7 @@ namespace MovieWebAPI.Models
                 //Format the response from the server
                 var response = await FormatResponse(context.Response);
                 logRequest.Response = response;
+
                 _db.LogRequests.Add(logRequest);
                 _db.SaveChanges();
                 //TODO: Save log to chosen datastore

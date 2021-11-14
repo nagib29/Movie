@@ -22,15 +22,17 @@ namespace MovieWebAPI.Controllers
         
         [HttpGet("{SearchValue}/{UserId}")]
         [Route("GetSearchResult")]
-        public Task<FirstApi> GetSearchResult(string SearchValue, int UserId)
+        public Task<ActionResult<FirstApi>> GetSearchResult(string SearchValue, int UserId)
         {
+
             var result = _movierepository.get(SearchValue, UserId);
+
             return result;
         }
 
         [HttpGet("{Id}/{UserId}")]
         [Route("GetMovieById")]
-        public Task<Movie> GetMovieById(int Id, int UserId)
+        public Task<ActionResult<Movie>> GetMovieById(int Id, int UserId)
         {
             var result = _movierepository.FindMovieById(Id,UserId);
             return result;
@@ -38,18 +40,26 @@ namespace MovieWebAPI.Controllers
 
         [HttpGet("{Id}/{UserId}")]
         [Route("GetTvShowById")]
-        public Task<TvShow> GetTvShowById(int Id, int UserId)
+        public Task<ActionResult<TvShow>> GetTvShowById(int Id, int UserId)
         {
             var result = _movierepository.FindTvShowById(Id, UserId);
+            return result;
+        }
+
+        [HttpGet("{Id}/{UserId}")]
+        [Route("FindActorById")]
+        public Task<ActionResult<Actor>> FindActorById(int Id, int UserId)
+        {
+            var result = _movierepository.FindActorById(Id, UserId);
             return result;
         }
 
 
         [HttpGet("{response}")]
         [Route("AlreadySearched")]
-        public string AlreadySearched(string response)
+        public IActionResult AlreadySearched(string response)
         {
-            return response;
+            return Ok(response);
         }
     }
 }

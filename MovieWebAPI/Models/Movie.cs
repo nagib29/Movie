@@ -58,5 +58,6 @@ namespace MovieWebAPI.Models
     {
         public IEnumerable<Movie> movies { get; set; }
         public IEnumerable<TvShow> tvshows { get; set; }
+        public IEnumerable<Actor> person { get; set; }
     }
 }

@@ -16,28 +16,35 @@ namespace MovieWebAPI.Models
             _db = db;
         }
 
-        
-        public async Task<Movie> FindMovieById(int Id, int UserId)
+        public async Task<ActionResult<Actor>> FindActorById(int Id, int UserId)
+        {
+            var result = _db.Actors.Find(Id);
+            return result;
+        }
+
+        public async Task<ActionResult<Movie>> FindMovieById(int Id, int UserId)
         {
             var result = _db.Movies.Include(a => a.actor).Include(a => a.director).Include(a => a.producer).Where(x => x.MovieId == Id).FirstOrDefault();
             return result;
         }
 
-        public async Task<TvShow> FindTvShowById(int Id, int UserId)
+        public async Task<ActionResult<TvShow>> FindTvShowById(int Id, int UserId)
         {
             var result = _db.TvShows.Include(a => a.actor).Include(a => a.director).Include(a => a.producer).Where(x=> x.TvShowId ==Id).FirstOrDefault();
             return result;
         }
 
-        public async Task<FirstApi> get(string searchvalue,int Id)
+        public async Task<ActionResult<FirstApi>> get(string searchvalue,int Id)
         {
             var Keys = searchvalue.Split(' ');
-            var movies = _db.Movies.Include(a=> a.actor).Include(a => a.director).Include(a => a.producer).Where(x => Keys.Any(key => x.MovieName.Contains(key))).ToList();
-            var tvshows = _db.TvShows.Include(a => a.actor).Include(a => a.director).Include(a => a.producer).Where(x => Keys.Any(key => x.TvShowName.Contains(key))).ToList();
+            var movies = _db.Movies.Include(a=> a.actor).Include(a => a.director).Include(a => a.producer).Where(x => Keys.Any(key => x.MovieName.ToLower().Contains(key.ToLower()))).ToList();
+            var tvshows = _db.TvShows.Include(a => a.actor).Include(a => a.director).Include(a => a.producer).Where(x => Keys.Any(key => x.TvShowName.ToLower().Contains(key.ToLower()))).ToList();
+            var person = _db.Actors.Where(x => Keys.Any(key => x.ActorName.ToLower().Contains(key.ToLower()))).ToList();
             FirstApi result = new FirstApi();
 
             result.movies = movies;
             result.tvshows = tvshows;
+            result.person = person;
             return result;
 
         }
