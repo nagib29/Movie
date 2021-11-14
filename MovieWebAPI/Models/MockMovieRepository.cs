@@ -42,9 +42,15 @@ namespace MovieWebAPI.Models
             var person = _db.Actors.Where(x => Keys.Any(key => x.ActorName.ToLower().Contains(key.ToLower()))).ToList();
             FirstApi result = new FirstApi();
 
-            result.movies = movies;
-            result.tvshows = tvshows;
-            result.person = person;
+            if(movies.Count > 0)
+                result.movies = movies; 
+
+            if (tvshows.Count > 0)
+                result.tvshows = tvshows;
+
+            if (person.Count > 0)
+                result.person = person;
+
             return result;
 
         }

@@ -35,6 +35,7 @@ namespace MovieWebAPI.Controllers
         public Task<ActionResult<Movie>> GetMovieById(int Id, int UserId)
         {
             var result = _movierepository.FindMovieById(Id,UserId);
+           
             return result;
         }
 
@@ -43,6 +44,7 @@ namespace MovieWebAPI.Controllers
         public Task<ActionResult<TvShow>> GetTvShowById(int Id, int UserId)
         {
             var result = _movierepository.FindTvShowById(Id, UserId);
+           
             return result;
         }
 
@@ -51,6 +53,7 @@ namespace MovieWebAPI.Controllers
         public Task<ActionResult<Actor>> FindActorById(int Id, int UserId)
         {
             var result = _movierepository.FindActorById(Id, UserId);
+           
             return result;
         }
 
