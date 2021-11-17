@@ -26,7 +26,7 @@ namespace MovieWebAPI.Models
             var request = await FormatRequest(context.Request);
             logRequest.searchValue = request;
             logRequest.RequestDate = DateTime.Now;
-            var check = _db.LogRequests.Where(x => x.searchValue == request).FirstOrDefault();
+            var check = _db.LogRequests.Where(x => x.searchValue == request).OrderByDescending(x=>x.LogId).FirstOrDefault();
 
             var path = context.Request.Path.ToString();
 
